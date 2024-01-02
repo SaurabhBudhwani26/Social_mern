@@ -21,4 +21,16 @@ app.use(morgan("common"))
 app.use(bodyParser.json({ limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
 app.use(cors())
-app.use("/assets", express.static(path.join(__dirname,'public/assets')))
+app.use("/assets", express.static(path.join(__dirname,'public/assets'))) /* This sets tje directory for where we sate the files(images) */
+
+// File Storage Configuration
+const storage = multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,"public/assets");
+    },
+    filename: function(req,file,cb){
+        cb(null, file.originalname);
+    }
+})
+const upload = multer({storage});
+
