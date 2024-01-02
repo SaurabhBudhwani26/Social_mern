@@ -1,5 +1,5 @@
 const express = require('express')
-const bodyParser = require('bodyparser')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
@@ -8,10 +8,11 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const path = require('path')
 const {fileUrlToPath} = require('url')
+const {register}= require('./controllers/auth.js')
 
 /*Configurations*/
-const __filename = fileUrlToPath(import.meta.url)
-const __dirname = path.dirname(__filename);
+// const __filename = fileUrlToPath(import.meta.url)
+// const __dirname = path.dirname(__filename);
 dotenv.config()
 const app = express()
 app.use(express.json())
@@ -21,7 +22,7 @@ app.use(morgan("common"))
 app.use(bodyParser.json({ limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
 app.use(cors())
-app.use("/assets", express.static(path.join(__dirname,'public/assets'))) /* This sets tje directory for where we sate the files(images) */
+app.use("/assets", express.static(path.join('public/assets'))) /* This sets tje directory for where we sate the files(images) */
 
 // File Storage Configuration
 const storage = multer.diskStorage({
@@ -33,4 +34,19 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({storage});
+
+// Routes with Files
+
+app.post('/auth/register', upload.single("picture"), register);
+
+
+// Mongoose Setup
+const PORT = process.env.PORT || 6001;
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+
+}).then(() =>{
+    app.listen(PORT, ()=> console.log(`Server listening on port: ${PORT}`));
+}).catch((err)=> console.log(`${err} did not connect`))
 
