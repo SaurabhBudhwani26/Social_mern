@@ -36,13 +36,45 @@ const register = async (req,res) =>{
         })
 
         const savedUser = await newUser.save()
-        res.status(201).json(savedUser)
+        res.status(201).json({msg: "User successfully registered"})
 
     }catch(err){
         res.status(500).json({err: err.message})
     }
 }
 
+// Logging in
+
+const login = async (req,res) =>{
+
+    try{
+        const {email, password} = req.body;
+        const user = await User.findOne({ email: email })
+
+        if(!user){
+            return res.status(400).json({err: "User does not exist"})
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if(!isMatch){
+            return res.status(400).json({err: "Invalid Credentials"})
+        }
+
+        const token = jwt.sign({email: user.email, password: user.password}, process.env.JWT_SECRET);
+        delete user.password
+        res.status(200).json({
+            token
+        })
+
+    }catch(err){
+        res.status(500).json({
+            err: err.message
+        })
+    }
+}
+
 module.exports = {
-    register
+    register,
+    login
 }

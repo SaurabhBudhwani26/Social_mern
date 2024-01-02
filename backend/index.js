@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const path = require('path')
 const {fileUrlToPath} = require('url')
 const {register}= require('./controllers/auth.js')
+const authRoutes = require('./routes/authRoutes.js')
 
 /*Configurations*/
 // const __filename = fileUrlToPath(import.meta.url)
@@ -38,6 +39,9 @@ const upload = multer({storage});
 // Routes with Files
 
 app.post('/auth/register', upload.single("picture"), register);
+
+//  Routes
+app.use('/auth', authRoutes)
 
 
 // Mongoose Setup
