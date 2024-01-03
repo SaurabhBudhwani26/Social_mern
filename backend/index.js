@@ -11,6 +11,9 @@ const {fileUrlToPath} = require('url')
 const {register}= require('./controllers/auth.js')
 const authRoutes = require('./routes/authRoutes.js')
 const userRoutes = require('./routes/userRoutes.js')
+const postRoutes = require('./routes/postRoutes.js')
+const {verifyToken} = require('./middleware/auth.js')
+const {createPost} = require('./controllers/post.js')
 
 /*Configurations*/
 // const __filename = fileUrlToPath(import.meta.url)
@@ -40,10 +43,13 @@ const upload = multer({storage});
 // Routes with Files
 
 app.post('/auth/register', upload.single("picture"), register);
+app.post('/posts',verifyToken, upload.single("picture"), createPost);
+
 
 //  Routes
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
+app.use('/posts',postRoutes)
 
 
 // Mongoose Setup
