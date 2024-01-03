@@ -14,6 +14,9 @@ const userRoutes = require('./routes/userRoutes.js')
 const postRoutes = require('./routes/postRoutes.js')
 const {verifyToken} = require('./middleware/auth.js')
 const {createPost} = require('./controllers/post.js')
+const User = require("./models/User.js")
+const Post = require("./models/Post.js")
+const { users, posts } = require("./data/index.js")
 
 /*Configurations*/
 // const __filename = fileUrlToPath(import.meta.url)
@@ -27,7 +30,8 @@ app.use(morgan("common"))
 app.use(bodyParser.json({ limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
 app.use(cors())
-app.use("/assets", express.static(path.join('public/assets'))) /* This sets tje directory for where we sate the files(images) */
+app.use("/assets", express.static(path.join('public/assets')))
+/* This sets tje directory for where we sate the files(images) */
 
 // File Storage Configuration
 const storage = multer.diskStorage({
@@ -60,5 +64,8 @@ mongoose.connect(process.env.MONGO_URL,{
 
 }).then(() =>{
     app.listen(PORT, ()=> console.log(`Server listening on port: ${PORT}`));
+    // Add data only once
+    // User.insertMany(users)
+    // Post.insertMany(posts)
 }).catch((err)=> console.log(`${err} did not connect`))
 
