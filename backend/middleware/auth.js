@@ -17,10 +17,13 @@ const verifyToken = async (req,res,next) => {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         req.user = verified;
         next();
-        
+
 
     }catch(err){
         res.status(500).json({err: err.message})
     }
 }
 
+module.exports = {
+    verifyToken
+}

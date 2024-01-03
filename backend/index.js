@@ -10,6 +10,7 @@ const path = require('path')
 const {fileUrlToPath} = require('url')
 const {register}= require('./controllers/auth.js')
 const authRoutes = require('./routes/authRoutes.js')
+const userRoutes = require('./routes/userRoutes.js')
 
 /*Configurations*/
 // const __filename = fileUrlToPath(import.meta.url)
@@ -42,6 +43,7 @@ app.post('/auth/register', upload.single("picture"), register);
 
 //  Routes
 app.use('/auth', authRoutes)
+app.use('/user', userRoutes)
 
 
 // Mongoose Setup
