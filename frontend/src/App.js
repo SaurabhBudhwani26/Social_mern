@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./scenes/homePage/index.jsx";
 import LoginPage from "scenes/loginPage/index.jsx";
 import ProfilePage from "scenes/profilePage/index.jsx";
@@ -12,6 +12,7 @@ function App() {
   const mode = useSelector((state) => state.mode);
   // Use selector is used to get the stat variable values
   const theme = useMemo(() => createTheme(themeSetting(mode)),[mode])
+  const isAuth = Boolean(useSelector((state) => state.token))
   
 
   return (
@@ -21,8 +22,8 @@ function App() {
     {/* This resets the css for material ui */}
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/home" element={isAuth ? <HomePage />: <Navigate to='/' />} />
+        <Route path="/profile/:userId" element={isAuth ? <ProfilePage />: <Navigate to='/' />} />
       </Routes>
       </ThemeProvider>
     </Router>

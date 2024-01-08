@@ -49,7 +49,7 @@ const login = async (req,res) =>{
 
     try{
         const {email, password} = req.body;
-        const user = await User.findOne({ email: email })
+        let user = await User.findOne({ email: email })
 
         if(!user){
             return res.status(400).json({err: "User does not exist"})
@@ -62,8 +62,12 @@ const login = async (req,res) =>{
         }
 
         const token = jwt.sign({email: user.email, password: user.password}, process.env.JWT_SECRET);
-        delete user.password
+
+        delete user.password;
+        
+
         res.status(200).json({
+            user,
             token
         })
 
