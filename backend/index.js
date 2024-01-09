@@ -19,8 +19,8 @@ const Post = require("./models/Post.js")
 const { users, posts } = require("./data/index.js")
 
 /*Configurations*/
-// const __filename = fileUrlToPath(import.meta.url)
-// const __dirname = path.dirname(__filename);
+// let __filepath = fileUrlToPath(import.meta.url)
+// const __dirname = path.dirname(__filepath);
 dotenv.config()
 const app = express()
 app.use(express.json())
@@ -30,7 +30,7 @@ app.use(morgan("common"))
 app.use(bodyParser.json({ limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
 app.use(cors())
-app.use("/assets", express.static(path.join('public/assets')))
+app.use("/assets", express.static("public/assets"));
 /* This sets tje directory for where we sate the files(images) */
 
 // File Storage Configuration
