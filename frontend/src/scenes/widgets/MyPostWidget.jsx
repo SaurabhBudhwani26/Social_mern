@@ -26,6 +26,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setPosts } from "state";
+import PostsWidget from "./PostsWidget";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
