@@ -27,7 +27,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
 
     const patchFriend = async () => {
         const response = await fetch(
-            `https://localhost:5001/users/${_id}/${friendId}`,
+            `http://localhost:5001/user/${_id}/${friendId}`,
             {
                 method: "PATCH",
                 headers: {

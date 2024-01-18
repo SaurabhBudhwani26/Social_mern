@@ -8,7 +8,6 @@ import PostsWidget from "scenes/widgets/PostsWidget";
 const HomePage = () => {
     const isNonMobileSceens = useMediaQuery("(min-width: 1000px)")
     const {_id, picturePath } = useSelector((state) => state.user)
-    console.log(picturePath)
     return (
         <Box>
             <Navbar />

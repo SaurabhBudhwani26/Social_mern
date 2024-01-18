@@ -14,8 +14,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log(typeof response)
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    dispatch(setPosts({ posts :data }));
   };
 
   const getUserPosts = async () => {
@@ -27,7 +28,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+
+    dispatch(setPosts(data));
   };
 
   useEffect(() => {
@@ -55,6 +57,10 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           likes,
           comments,
         }) => (
+          <>
+          
+          
+          
           <PostWidget
             key={_id}
             postId={_id}
@@ -67,8 +73,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             likes={likes}
             comments={comments}
           />
+          </>
         )
-      )}
+        )}
     </>
   );
 };
