@@ -14,7 +14,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(typeof response)
     const data = await response.json();
     dispatch(setPosts({ posts :data }));
   };
@@ -43,7 +42,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   
   return (
     <>
-    
+      {/* {console.log(posts)} */}
       {posts.map(
         ({
           _id,

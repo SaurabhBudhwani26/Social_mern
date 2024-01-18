@@ -12,7 +12,6 @@ const register = async (req,res) =>{
             email,
             password,
             picturePath,
-            friends,
             location,
             occupation,
 
@@ -28,7 +27,7 @@ const register = async (req,res) =>{
             email,
             password: hashedPassword,
             picturePath,
-            friends,
+            friends: [],
             location,
             occupation,
             viewedProfile: Math.floor(Math.random() * 10000),

@@ -11,7 +11,7 @@ const createPost = async(req,res) => {
         const newPost = new Post({
             userId,
             firstName: user.firstName,
-            lastname: user.lastName,
+            lastName: user.lastName,
             location: user.loaction,
             description,
             userPicturePath: user.picturePath,
@@ -55,20 +55,20 @@ const getUserPosts = async (req, res) => {
 
 // Update controllers
 const likePost = async (req, res) => {
-    try{
-        const {id} = req.params;
-        const {userId} = req.body;
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
         const post = await Post.findById(id);
         const isLiked = post.likes.get(userId)
 
-        if(isLiked){
+        if(isLiked) {
             post.likes.delete(userId)
-        }else{
+        } else { 
             post.likes.set(userId, true);
         }
 
 
-        const updatedPost = await Post.findByIDAndUpdate(
+        const updatedPost = await Post.findByIdAndUpdate(
             id,
             { likes: post.likes },
             { new: true }
