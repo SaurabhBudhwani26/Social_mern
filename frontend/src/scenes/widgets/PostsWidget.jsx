@@ -27,8 +27,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
-
-    dispatch(setPosts(data));
+    dispatch(setPosts({ posts: data }));
   };
 
   useEffect(() => {

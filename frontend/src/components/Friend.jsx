@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
-import state from "state";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
-  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
   const { palette } = useTheme();
@@ -57,7 +55,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
                 cursor: "pointer",
               },
             }}
-          >
+          > 
             {name}
           </Typography>
           <Typography color={medium} fontSize="0.75rem">
